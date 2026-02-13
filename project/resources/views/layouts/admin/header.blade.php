@@ -17,7 +17,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><img src="{{ asset('images/LOGO.png') }}" alt="{{ config('app.name') }}" style="max-height: 80px; width: auto;"></span>
         <!-- logo fod mobile devices -->
-        <span class="logo-lg"><img src="{{ asset('images/LOGO.png') }}" alt="{{ config('app.name') }}" style="max-height: 90px; width: auto;"></span>
+        <span class="logo-lg"><img src="{{ asset('images/LOGO.png') }}" alt="{{ config('app.name') }}" style="max-height: 55px; width: auto;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
