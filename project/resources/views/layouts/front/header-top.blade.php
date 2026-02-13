@@ -46,7 +46,7 @@
         <div class="header-main-inner">
             <a href="{{ route('home') }}" class="header-brand">
                 <img src="{{ asset('images/LOGO.png') }}" alt="{{ config('app.name') }}" class="header-brand-img">
-                <span class="header-brand-name">{{ config('app.name') }}</span>
+                {{-- <span class="header-brand-name">{{ config('app.name') }}</span> --}}
             </a>
 
             <form action="{{ route('search.product') }}" method="GET" class="header-search-form">
@@ -199,3 +199,5 @@
         </nav>
     </div>
 </div>
+
+

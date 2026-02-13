@@ -164,7 +164,6 @@
     </nav>
 </header>
 
-<!-- Hardcoded Sidebar directly after header, always below logo -->
 <aside class="main-sidebar" style="margin-top:90px;">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
