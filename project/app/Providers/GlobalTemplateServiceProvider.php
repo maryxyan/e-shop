@@ -34,8 +34,11 @@ class GlobalTemplateServiceProvider extends ServiceProvider
         });
 
         view()->composer(['layouts.front.app', 'front.categories.sidebar-category'], function ($view) {
+            $cartRepo = new CartRepository(new \App\Shop\Carts\ShoppingCart);
             $view->with('categories', $this->getCategories());
-            $view->with('cartCount', $this->getCartCount());
+            $view->with('cartCount', $cartRepo->countItems());
+            $view->with('cartItems', $cartRepo->getCartItemsTransformed());
+            $view->with('cartSubTotal', $cartRepo->getSubTotal());
         });
 
         /**

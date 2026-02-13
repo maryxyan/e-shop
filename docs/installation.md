@@ -226,7 +226,7 @@ SHOP_WEIGHT=lbs
 SHOP_EMAIL=your@email.com
 SHIPPING_COST=0
 TAX_RATE=10
-DEFAULT_CURRENCY=USD
+DEFAULT_CURRENCY=RON
 ```
 
 You can activate [SHIPPO shipping](https://goshippo.com/) if you need it else set `0` to deactivate

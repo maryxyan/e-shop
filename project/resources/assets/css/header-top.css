@@ -1,0 +1,527 @@
+/* ============================================
+   Header Top - 3 bars (utility, main, category)
+   ============================================ */
+
+/* Bar 1: Utility bar - dark grey, white text */
+.header-utility-bar {
+    background-color: #333333;
+    color: #fff;
+    font-size: 13px;
+    padding: 8px 0;
+}
+.header-utility-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-utility-left,
+.header-utility-right {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+.header-utility-left li,
+.header-utility-right li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.header-utility-left a,
+.header-utility-right a {
+    color: #fff !important;
+}
+.header-utility-left a:hover,
+.header-utility-right a:hover {
+    opacity: 0.85;
+}
+.header-utility-right {
+    margin-left: auto;
+}
+
+/* Bar 2: Main header - white */
+.header-main-bar {
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 15px 0;
+    position: relative;
+}
+.header-main-bar .container {
+    position: relative;
+}
+.header-mobile-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0;
+}
+.header-mobile-toggle .icon-bar {
+    background: #333;
+}
+.header-main-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.header-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #222 !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    font-size: 24px;
+}
+.header-brand:hover {
+    color: #222;
+}
+.header-brand-img {
+    max-height: 50px;
+    width: auto;
+}
+.header-brand-name {
+    color: #222;
+}
+
+/* Search in main bar */
+.header-search-form {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 auto;
+    min-width: 200px;
+}
+.header-search-input-group {
+    display: flex;
+    border: 1px solid #d2d6de;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+.header-search-input {
+    flex: 1;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 8px 12px;
+    min-width: 0;
+}
+.header-search-btn-wrap {
+    border-left: 1px solid #d2d6de;
+}
+.header-search-btn {
+    background: transparent;
+    border: none;
+    color: #666;
+    padding: 8px 14px;
+    cursor: pointer;
+}
+.header-search-btn:hover {
+    color: #d89522;
+}
+.header-search-input-group > .header-search-btn {
+    border-left: 1px solid #d2d6de;
+    margin-left: 0;
+}
+
+/* Account + Cart right */
+.header-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+.header-account-wrap {
+    position: relative;
+}
+.header-account-link,
+.header-cart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #222 !important;
+    font-size: 14px;
+    text-decoration: none !important;
+}
+.header-account-link:hover,
+.header-cart-link:hover {
+    color: #d89522 !important;
+}
+
+/* Contul Meu hover dropdown with login form */
+.header-account-dropdown {
+    position: relative;
+}
+.header-account-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    min-width: 320px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 20px;
+    z-index: 1050;
+    display: none;
+}
+.header-account-dropdown:hover .header-account-dropdown-menu,
+.header-account-dropdown .header-account-dropdown-menu:hover {
+    display: block;
+}
+/* Small gap bridge so dropdown stays open when moving mouse to panel */
+.header-account-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 12px;
+}
+.header-login-form .form-group {
+    margin-bottom: 15px;
+}
+.header-login-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+}
+.header-login-form .form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d2d6de;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+}
+.header-login-form .form-control:focus {
+    border-color: #d89522;
+    outline: none;
+}
+.header-login-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.header-login-forgot {
+    font-size: 13px;
+    color: #52575d !important;
+}
+.header-login-forgot:hover {
+    color: #d89522 !important;
+}
+.header-login-btn {
+    background: #222 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 8px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.header-login-btn:hover {
+    background: #333 !important;
+    color: #fff !important;
+}
+.header-login-register {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #222 !important;
+    text-transform: uppercase;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+.header-login-register:hover {
+    color: #d89522 !important;
+}
+.header-login-register .fa-arrow-right {
+    margin-left: 6px;
+    font-size: 10px;
+}
+
+.header-cart-link {
+    position: relative;
+}
+
+/* Cosul meu hover dropdown - cart preview */
+.header-cart-dropdown {
+    position: relative;
+}
+.header-cart-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    min-width: 300px;
+    max-width: 360px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 20px;
+    z-index: 1050;
+    display: none;
+}
+.header-cart-dropdown:hover .header-cart-dropdown-menu,
+.header-cart-dropdown .header-cart-dropdown-menu:hover {
+    display: block;
+}
+.header-cart-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 12px;
+}
+.header-cart-preview-empty {
+    text-align: center;
+    color: #52575d;
+    font-size: 14px;
+    margin: 0 0 15px 0;
+    padding: 10px 0;
+}
+.header-cart-preview-footer,
+.header-cart-preview-footer-empty {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+.header-cart-preview-footer-empty {
+    justify-content: flex-end;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+.header-cart-preview-btn {
+    background: #222 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none !important;
+}
+.header-cart-preview-btn:hover {
+    background: #333 !important;
+    color: #fff !important;
+}
+.header-cart-preview-list {
+    max-height: 240px;
+    overflow-y: auto;
+}
+.header-cart-preview-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.header-cart-preview-item:last-child {
+    border-bottom: none;
+}
+.header-cart-preview-img,
+.header-cart-preview-noimg {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 4px;
+    object-fit: cover;
+    background: #f5f5f5;
+}
+.header-cart-preview-noimg {
+    display: block;
+}
+.header-cart-preview-details {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    min-width: 0;
+}
+.header-cart-preview-name {
+    font-size: 13px;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.header-cart-preview-qty {
+    font-size: 12px;
+    color: #666;
+}
+.header-cart-preview-total {
+    font-weight: 600;
+    font-size: 14px;
+    color: #222;
+}
+.header-cart-preview-more {
+    font-size: 12px;
+    color: #666;
+    margin: 5px 0 0 0;
+}
+
+.header-cart-badge {
+    background: #222;
+    color: #fff !important;
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 9px;
+    padding: 0 5px;
+}
+
+/* Mobile collapse */
+.header-mobile-collapse {
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+}
+.header-mobile-search {
+    margin-bottom: 15px;
+}
+.header-mobile-search .header-search-input-group {
+    max-width: 100%;
+}
+.header-mobile-links {
+    list-style: none;
+    margin: 0 0 15px 0;
+    padding: 0;
+}
+.header-mobile-links li {
+    margin-bottom: 8px;
+}
+.header-mobile-links a {
+    color: #222 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.header-mobile-categories {
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+.header-mobile-cat {
+    margin-bottom: 12px;
+}
+.header-mobile-cat strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #222;
+    font-size: 12px;
+}
+.header-mobile-cat a,
+.header-mobile-cat-link {
+    display: block;
+    padding: 4px 0;
+    color: #52575d !important;
+    font-size: 14px;
+}
+.header-mobile-cat-link {
+    margin-bottom: 6px;
+}
+
+/* Bar 3: Category bar - orange-brown, white uppercase */
+.header-category-bar {
+    background-color: #a76a3e;
+    padding: 12px 0;
+}
+.header-category-nav {
+    display: block;
+}
+.header-category-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px 25px;
+}
+.header-category-list > li {
+    display: inline-block;
+}
+.header-category-list a {
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-decoration: none !important;
+}
+.header-category-list a:hover,
+.header-category-list a.active {
+    opacity: 0.9;
+    text-decoration: underline !important;
+}
+.header-category-dropdown .dropdown-toggle {
+    color: #fff !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.header-category-dropdown .dropdown-toggle .fa-angle-down {
+    font-size: 12px;
+}
+.header-category-dropdown-menu {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 8px 0;
+}
+.header-category-dropdown-menu a {
+    color: #222 !important;
+    text-transform: none;
+    font-weight: normal;
+    padding: 8px 16px;
+    display: block;
+}
+.header-category-dropdown-menu a:hover {
+    background: #f5f5f5;
+}
+
+/* Responsive: hide main inner parts on mobile, show toggle */
+@media (max-width: 767px) {
+    .header-main-inner .header-search-form,
+    .header-main-inner .header-nav-right .header-account-wrap .header-account-link span,
+    .header-main-inner .header-cart-link .header-cart-text,
+    .header-main-inner .header-cart-link .fa-angle-down,
+    .header-main-inner .header-account-link .fa-angle-down {
+        display: none !important;
+    }
+    .header-main-inner {
+        justify-content: flex-start;
+    }
+    .header-nav-right {
+        margin-left: auto;
+    }
+    .header-brand-name {
+        font-size: 20px;
+    }
+}

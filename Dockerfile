@@ -1,7 +1,7 @@
-FROM jsdecena/php74-fpm
+FROM php:8.1-fpm
 
 ENV NODE_VERSION=12.6.0
-RUN apt update && apt install -y curl
+RUN apt update && apt install -y curl zlib1g-dev libpng-dev
 
 RUN docker-php-ext-install mysqli pdo_mysql gd
 

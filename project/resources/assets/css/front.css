@@ -160,6 +160,27 @@ li.menubar-cart a {
 
 }
 
+/* Login, Register, Cart - keep horizontal on all screens */
+ul.auth-cart-horizontal {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+ul.auth-cart-horizontal > li {
+    float: none;
+    display: inline-block;
+}
+@media (max-width: 767px) {
+    ul.auth-cart-horizontal {
+        margin: 10px 0;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    ul.auth-cart-horizontal > li {
+        margin-right: 15px;
+    }
+}
+
 .menu-shopping-cart {
     position: relative;
 }

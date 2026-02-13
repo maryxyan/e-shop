@@ -1,10 +1,23 @@
 <header class="main-header">
+    <style>
+        .navbar-custom-menu .navbar-nav {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+        }
+        .navbar-custom-menu .navbar-nav > li {
+            display: inline-block !important;
+            float: none !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+    </style>
     <!-- Logo -->
     <a href="{{route('admin.dashboard')}}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">{{ config('app.name') }}</span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg">{{ config('app.name') }}</span>
+        <span class="logo-mini"><img src="{{ asset('images/LOGO.png') }}" alt="{{ config('app.name') }}" style="max-height: 80px; width: auto;"></span>
+        <!-- logo fod mobile devices -->
+        <span class="logo-lg"><img src="{{ asset('images/LOGO.png') }}" alt="{{ config('app.name') }}" style="max-height: 90px; width: auto;"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -150,3 +163,29 @@
         </div>
     </nav>
 </header>
+
+<!-- Hardcoded Sidebar directly after header, always below logo -->
+<aside class="main-sidebar" style="margin-top:90px;">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{{ $user->name }}</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">HOME</li>
+            <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-home"></i> <span>Home</span></a></li>
+            <li class="header">SELL</li>
+            <li><a href="{{ route('admin.products.index') }}"><i class="fa fa-gift"></i> <span>Products</span></a></li>
+            <!-- ...existing sidebar items... -->
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

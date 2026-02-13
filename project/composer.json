@@ -29,9 +29,11 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/jsdecena/LaravelShoppingcart"
+            "url": "https://github.com/jsdecena/LaravelShoppingcart",
+            "no-api": true
         }
     ],
+
     "require-dev": {
         "fakerphp/faker": "^1.21",
         "filp/whoops": "~2.0",
@@ -80,7 +82,10 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true,
-        "platform-check": false
+        "platform-check": false,
+        "audit": {
+            "block-insecure": false
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

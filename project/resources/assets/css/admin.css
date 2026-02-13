@@ -32,3 +32,20 @@ table.dataTable thead th {
     list-style-type: none;
     padding-left: 25px;
 }
+
+.sidebar-menu li > a > .pull-right-container {
+    transform: translate(0%, 100%);
+}
+
+.navbar-custom-menu .navbar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+}
+
+.navbar-custom-menu .navbar-nav > li {
+    display: inline-block !important;
+    float: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}

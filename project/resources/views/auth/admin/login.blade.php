@@ -14,7 +14,7 @@
 <body class="hold-transition skin-purple login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('admin') }}">{{ config('app.name') }}</a>
+            <a href="{{ url('admin') }}"><img src="{{ asset('images/LOGO.png') }}" alt="{{ config('app.name') }}" style="max-height: 120px; width: auto;"></a>
         </div>
         <!-- /.login-logo -->
         @include('layouts.errors-and-messages')

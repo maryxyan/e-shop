@@ -2,18 +2,20 @@
 
 return [
     'shipping_token' => env('SHIPPING_API_TOKEN'),
-    'name' => env('SHOP_NAME', 'Laracom'),
-    'country' => env('SHOP_COUNTRY_ISO', 'US'),
-    'country_id' => env('SHOP_COUNTRY_ID', 226),
-    'weight' => env('SHOP_WEIGHT', 'lbs'),
-    'email' => env('SHOP_EMAIL', 'john@doe.com'),
-    'phone' => env('SHOP_PHONE', '1 855 791 4041'),
+    'name' => env('SHOP_NAME', 'DMG SHOP'),
+    'country' => env('SHOP_COUNTRY_ISO', 'RO'),
+    'country_id' => env('SHOP_COUNTRY_ID', 208),
+    'weight' => env('SHOP_WEIGHT', 'kg'),
+    'email' => env('SHOP_EMAIL', 'office@dmgart.ro'),
+    'phone' => env('SHOP_PHONE', ' 0727 583 963'),
     'warehouse' => [
-        'address_1' => '1600 Amphitheatre Parkway',
+        'address_1' => 'Strada Grivitei 22',
         'address_2' => '',
-        'state' => 'CA',
-        'city' => 'Mountain View',
-        'country' => 'US',
+        'state' => 'Bucuresti',
+        'city' => 'Bucuresti',
+        'country' => 'RO',
         'zip' => '94043',
-    ]
+    ],
+    'social_facebook' => env('SHOP_SOCIAL_FACEBOOK', ''),
+    'social_instagram' => env('SHOP_SOCIAL_INSTAGRAM', ''),
 ];
