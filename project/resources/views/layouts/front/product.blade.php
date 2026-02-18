@@ -19,13 +19,13 @@
                 @endif
             </ul>
             <figure class="text-center product-cover-wrap col-md-8">
-                <img id="main-image" class="product-cover img-responsive" src="{{ $product->cover }}?w=400"
+                <img id="main-image" class="product-cover img-responsive"; style="max-width: 420px;" src="{{ $product->cover }}?w=400"
                     data-zoom="{{ $product->cover }}?w=1200">
             </figure>
         @else
             <figure>
                 <img src="{{ asset('images/NoData.png') }}" alt="{{ $product->name }}"
-                    class="img-bordered img-responsive">
+                    class="img-bordered img-responsive category-cover-img style="max-height:420px;max-width:280px;">">
             </figure>
         @endif
     </div>

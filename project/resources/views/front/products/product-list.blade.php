@@ -30,10 +30,10 @@
                         </div>
                         @if (isset($product->cover))
                             <img src="{{ $product->cover }}" alt="{{ $product->name }}"
-                                class="img-bordered img-responsive">
+                                class="img-bordered img-responsive category-cover-img" style="max-height:420px;max-width:280px;">
                         @else
                             <img src="{{ asset('images/NoData.png') }}" alt="{{ $product->name }}"
-                                class="img-bordered img-responsive">
+                                class="img-bordered img-responsive category-cover-img" style="max-height:420px;max-width:280px;">
                         @endif
                     </div>
 
