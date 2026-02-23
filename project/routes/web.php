@@ -27,6 +27,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::group(['middleware' => ['role:admin|superadmin|clerk, guard:employee']], function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
             Route::namespace('Products')->group(function () {
+                // Batch upload routes - must be defined BEFORE resource route to avoid conflicts
+                Route::get('products/batch-upload', 'ProductController@batchUpload')->name('products.batch-upload');
+                Route::post('products/batch-upload', 'ProductController@processBatchUpload')->name('products.batch-upload.process');
+                
                 Route::resource('products', 'ProductController');
                 Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
                 Route::get('remove-image-thumb', 'ProductController@removeThumbnail')->name('product.remove.thumb');

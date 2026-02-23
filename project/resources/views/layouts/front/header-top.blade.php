@@ -176,25 +176,13 @@
     <div class="container">
         <nav class="header-category-nav">
             <ul class="header-category-list">
-                <li>
-                    <a href="{{ route('front.category.slug', 'toys') }}">TOYS</a>
-                </li>
-                <li>
-                    <a href="{{ route('front.category.slug', 'profile-interior') }}">PROFILE INTERIOR</a>
-                </li>
-                <li>
-                    <a href="{{ route('front.category.slug', 'profile-exterior') }}">PROFILE EXTERIOR</a>
-                </li>
-                <li>
-                    <a href="{{ route('front.category.slug', 'tapet') }}">TAPET</a>
-                </li>
-                <li>
-                    <a href="{{ route('front.category.slug', 'corpuri-de-iluminat-de-interior') }}">CORPURI DE ILUMINAT DE INTERIOR</a>
-                </li>
-                <li>
-                    <a href="{{ route('front.category.slug', 'corpuri-de-iluminat-de-exterior') }}">CORPURI DE ILUMINAT DE EXTERIOR</a>
-                </li>
-                <!-- ...existing code for dynamic categories if needed... -->
+                @foreach($categories as $category)
+                    <li>
+                        <a href="{{ route('front.category.slug', $category->slug) }}">
+                            {{ strtoupper($category->name) }}
+                        </a>
+                    </li>
+                @endforeach
             </ul>
         </nav>
     </div>

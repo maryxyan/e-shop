@@ -4,7 +4,7 @@
             <li class="col-md-3 col-sm-6 col-xs-12 product-list">
                 <div class="single-product">
                     <div class="product">
-                        <div class="product-overlay">
+                        <div class="product-overlay style="position:absolute; width:280px;">
                             <div class="vcenter">
                                 <div class="centrize">
                                     <ul class="list-unstyled list-group">
@@ -30,10 +30,10 @@
                         </div>
                         @if (isset($product->cover))
                             <img src="{{ $product->cover }}" alt="{{ $product->name }}"
-                                class="img-bordered img-responsive category-cover-img" style="max-height:420px;max-width:280px;">
+                                class="img-bordered img-responsive category-cover-img" style="max-height:420px;max-width:260px;">
                         @else
                             <img src="{{ asset('images/NoData.png') }}" alt="{{ $product->name }}"
-                                class="img-bordered img-responsive category-cover-img" style="max-height:420px;max-width:280px;">
+                                class="img-bordered img-responsive category-cover-img" style="max-height:420px;max-width:260px;">
                         @endif
                     </div>
 

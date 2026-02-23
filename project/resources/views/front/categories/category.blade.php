@@ -19,10 +19,7 @@
             </div>
         </div>
         <hr>
-        <div class="col-md-3">
-            @include('front.categories.sidebar-category')
-        </div>
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="row">
                 <div class="category-image">
                     @if(isset($category->cover))
