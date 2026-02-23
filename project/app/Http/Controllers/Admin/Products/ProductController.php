@@ -6,6 +6,7 @@ use App\Shop\Attributes\Repositories\AttributeRepositoryInterface;
 use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
 use App\Shop\Brands\Repositories\BrandRepositoryInterface;
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Shop\Categories\Category;
 use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Exceptions\ProductUpdateErrorException;
 use App\Shop\Products\Product;
@@ -163,12 +164,12 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param int|string $id
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(int $id)
+    public function show($id)
     {
-        $product = $this->productRepo->findProductById($id);
+        $product = $this->productRepo->findProductById((int)$id);
         return view('admin.products.show', compact('product'));
     }
 
@@ -290,6 +291,190 @@ class ProductController extends Controller
         $productRepo->removeProduct();
 
         return redirect()->route('admin.products.index')->with('message', 'Delete successful');
+    }
+
+    /**
+     * Show the batch upload form.
+     */
+    public function batchUpload()
+    {
+        $previewRows = Product::orderBy('id', 'desc')
+            ->take(10)
+            ->get()
+            ->map(function (Product $product) {
+                $firstImage = $product->images()->first();
+                $secondImage = $product->images()->skip(1)->first();
+                $category = $product->categories()->whereNull('parent_id')->first();
+                $subcategory = $product->categories()->whereNotNull('parent_id')->first();
+
+                return [
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'image_url' => $firstImage ? $firstImage->src : null,
+                    'image_url_2' => $secondImage ? $secondImage->src : null,
+                    'category' => $category ? $category->name : null,
+                    'subcategory' => $subcategory ? $subcategory->name : null,
+                    'description' => $product->description,
+                    'specificatii_produs' => null,
+                ];
+            });
+
+        return view('admin.batchupload.show', [
+            'previewRows' => $previewRows,
+        ]);
+    }
+
+    /**
+     * Process the batch upload file.
+     */
+    public function processBatchUpload(Request $request)
+    {
+        $request->validate([
+            'products_file' => 'required|file|mimes:csv,txt,xlsx',
+        ]);
+
+        $file = $request->file('products_file');
+        $path = $file->getRealPath();
+
+        if (($handle = fopen($path, 'r')) === false) {
+            return redirect()->route('admin.products.batch-upload')
+                ->withErrors(['products_file' => 'Could not open uploaded file.']);
+        }
+
+        $header = fgetcsv($handle, 0, ',');
+
+        if ($header === false) {
+            fclose($handle);
+            return redirect()->route('admin.products.batch-upload')
+                ->withErrors(['products_file' => 'Uploaded file is empty.']);
+        }
+
+        $normalizedHeader = array_map(function ($value) {
+            return strtolower(trim($value));
+        }, $header);
+
+        $requiredColumns = [
+            'name',
+            'price',
+            'image_url',
+            'image_url_2',
+            'category',
+            'subcategory',
+            'description',
+            'specificatii_produs',
+        ];
+
+        $missing = array_diff($requiredColumns, $normalizedHeader);
+
+        if (!empty($missing)) {
+            fclose($handle);
+            return redirect()->route('admin.products.batch-upload')
+                ->withErrors(['products_file' => 'Missing required columns: ' . implode(', ', $missing)]);
+        }
+
+        $columnIndexes = array_flip($normalizedHeader);
+
+        DB::beginTransaction();
+
+        try {
+            while (($row = fgetcsv($handle, 0, ',')) !== false) {
+                if (count(array_filter($row, function ($value) {
+                    return trim((string)$value) !== '';
+                })) === 0) {
+                    continue;
+                }
+
+                $rowData = [];
+                foreach ($requiredColumns as $column) {
+                    $index = $columnIndexes[$column];
+                    $rowData[$column] = isset($row[$index]) ? trim($row[$index]) : null;
+                }
+
+                // Normalize price (e.g. "74 23 lei" -> 74.23)
+                $rawPrice = (string)($rowData['price'] ?? '');
+                // Replace comma with dot for decimal, remove currency text and spaces
+                $normalizedPrice = str_replace(',', '.', $rawPrice);
+                $normalizedPrice = preg_replace('/[^0-9.\-]/', '', $normalizedPrice);
+
+                if ($normalizedPrice === '' || !is_numeric($normalizedPrice)) {
+                    fclose($handle);
+                    DB::rollBack();
+                    return redirect()->route('admin.products.batch-upload')
+                        ->withErrors(['products_file' => 'Invalid price value found: "' . $rowData['price'] . '"']);
+                }
+
+                $sku = strtoupper(Str::slug($rowData['name'])) . '-' . substr(uniqid(), -6);
+
+                $productData = [
+                    'sku' => $sku,
+                    'name' => $rowData['name'],
+                    'price' => $normalizedPrice,
+                    'quantity' => 0,
+                    'description' => $rowData['description'] ?? '',
+                    'slug' => Str::slug($rowData['name']),
+                    'status' => 1,
+                ];
+
+                /** @var Product $product */
+                $product = $this->productRepo->createProduct($productData);
+                $productRepo = new ProductRepository($product);
+
+                if (!empty($rowData['specificatii_produs'])) {
+                    $product->description = trim($product->description . "\n\n" . $rowData['specificatii_produs']);
+                    $product->save();
+                }
+
+                $categoryIds = [];
+
+                if (!empty($rowData['category'])) {
+                    $category = Category::firstOrCreate(
+                        ['name' => $rowData['category'], 'parent_id' => null],
+                        [
+                            'slug' => Str::slug($rowData['category']),
+                            'status' => 1,
+                        ]
+                    );
+                    $categoryIds[] = $category->id;
+
+                    if (!empty($rowData['subcategory'])) {
+                        $subcategory = Category::firstOrCreate(
+                            ['name' => $rowData['subcategory'], 'parent_id' => $category->id],
+                            [
+                                'slug' => Str::slug($rowData['subcategory']),
+                                'status' => 1,
+                                'parent_id' => $category->id,
+                            ]
+                        );
+                        $categoryIds[] = $subcategory->id;
+                    }
+                }
+
+                if (!empty($categoryIds)) {
+                    $productRepo->syncCategories($categoryIds);
+                }
+
+                if (!empty($rowData['image_url'])) {
+                    $product->images()->create([
+                        'src' => $rowData['image_url'],
+                    ]);
+                }
+
+                if (!empty($rowData['image_url_2'])) {
+                    $product->images()->create([
+                        'src' => $rowData['image_url_2'],
+                    ]);
+                }
+            }
+
+            fclose($handle);
+            DB::commit();
+        } catch (\Throwable $e) {
+            fclose($handle);
+            DB::rollBack();
+            throw $e;
+        }
+
+        return redirect()->route('admin.products.batch-upload')->with('success', 'Batch upload processed!');
     }
 
     /**
