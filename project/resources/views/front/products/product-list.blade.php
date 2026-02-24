@@ -4,7 +4,7 @@
             <li class="col-md-3 col-sm-6 col-xs-12 product-list">
                 <div class="single-product">
                     <div class="product">
-                        <div class="product-overlay style="position:absolute; width:280px;">
+                        <div class="product-overlay style="position:absolute; width:260px;">
                             <div class="vcenter">
                                 <div class="centrize">
                                     <ul class="list-unstyled list-group">
@@ -21,6 +21,7 @@
                                         <li> <button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#myModal_{{ $product->id }}"> <i class="fa fa-eye"></i>
                                                 Quick View</button>
+                                        </li>
                                         <li> <a class="btn btn-default product-btn"
                                                 href="{{ route('front.get.product', $product->slug) }}"> <i
                                                     class="fa fa-link"></i> Go to product</a> </li>
@@ -56,9 +57,13 @@
                     <!-- Modal -->
                     <div class="modal fade" id="myModal_{{ $product->id }}" tabindex="-1" role="dialog"
                         aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
-                                @include('layouts.front.product')
+                                @php
+                                    $images = $product->images()->get();
+                                    $productAttributes = $product->attributes;
+                                @endphp
+                                @include('layouts.front.product', compact('product', 'images', 'productAttributes'))
                             </div>
                         </div>
                     </div>

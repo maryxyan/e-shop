@@ -55,11 +55,25 @@ class ProductController extends Controller
         $category = $product->categories()->first();
         $productAttributes = $product->attributes;
 
+        // Get related products from the same category
+        $relatedProducts = collect([]);
+        if ($category) {
+            $relatedProducts = $category->products()
+                ->where('products.status', 1)
+                ->where('products.id', '!=', $product->id)
+                ->limit(4)
+                ->get()
+                ->map(function ($item) {
+                    return $this->transformProduct($item);
+                });
+        }
+
         return view('front.products.product', compact(
             'product',
             'images',
             'productAttributes',
-            'category'
+            'category',
+            'relatedProducts'
         ));
     }
 }

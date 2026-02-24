@@ -45,8 +45,13 @@ trait ProductTransformable
         if ($path == null) {
             return $path;
         }
-        if (file_exists("/var/www/storage/app/public/" . $path)) {
+        // Check using Laravel's storage path - works on all systems
+        if (file_exists(storage_path("app/public/" . $path))) {
             return asset("storage/$path");
+        }
+        // Also check if it's already a valid URL or asset path
+        if (strpos($path, 'http') === 0 || strpos($path, 'asset') === 0) {
+            return $path;
         }
         return asset("images/NoData.png");
     }
