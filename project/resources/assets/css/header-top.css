@@ -154,6 +154,12 @@
     color: #d89522 !important;
 }
 
+/* Larger icons for cart and account */
+.header-account-link .fa-user,
+.header-cart-link .fa-shopping-cart {
+    font-size: 22px;
+}
+
 /* Contul Meu hover dropdown with login form */
 .header-account-dropdown {
     position: relative;
