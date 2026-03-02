@@ -483,7 +483,7 @@
 .header-category-list a:hover,
 .header-category-list a.active {
     opacity: 0.9;
-    text-decoration: underline !important;
+    border-bottom: #d2d6de 3px solid;
 }
 .header-category-dropdown .dropdown-toggle {
     color: #fff !important;

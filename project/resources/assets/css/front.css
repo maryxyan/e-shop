@@ -273,6 +273,7 @@ ul.auth-cart-horizontal > li {
 
 .single-product {
     margin-bottom: 30px;
+
 }
 
 .product-overlay {
@@ -280,12 +281,13 @@ ul.auth-cart-horizontal > li {
     left: 0;
     top: 0;
     height: 100%;
-    width: 100%;
+    width: 260px;
     background-color: rgba(0, 0, 0, 0.7);
     opacity: 0;
     transition: opacity .8s ease, border .4s ease;
     text-align: center;
     color: #fff;
+
 }
 .vcenter {
     display: table;
