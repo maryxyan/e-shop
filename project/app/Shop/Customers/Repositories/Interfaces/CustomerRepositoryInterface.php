@@ -5,6 +5,7 @@ namespace App\Shop\Customers\Repositories\Interfaces;
 use App\Shop\Addresses\Address;
 use Jsdecena\Baserepo\BaseRepositoryInterface;
 use App\Shop\Customers\Customer;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as Support;
 
@@ -25,6 +26,8 @@ interface CustomerRepositoryInterface extends BaseRepositoryInterface
     public function findAddresses() : Support;
 
     public function findOrders() : Collection;
+
+    public function findOrdersPaginated(int $perPage = 10) : LengthAwarePaginator;
 
     public function searchCustomer(string $text) : Collection;
 

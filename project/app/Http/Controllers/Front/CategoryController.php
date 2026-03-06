@@ -38,17 +38,15 @@ class CategoryController extends Controller
 
         $repo = new CategoryRepository($category);
 
-        $products = $repo->findProducts()->where('status', 1)->all();
-        $pathValiableProducts = array();
-        foreach ($products as $product) {
-            $item = $product;
-            $item->cover = $this->rewriteExitsImagePath($item->cover);
-            $pathValiableProducts[] = $item;
-        }
+        $products = $repo->findProductsPaginated(20);
+
+        $products->getCollection()->transform(function ($product) {
+            return $this->transformProduct($product);
+        });
 
         return view('front.categories.category', [
             'category' => $category,
-            'products' => $repo->paginateArrayResults($pathValiableProducts, 20)
+            'products' => $products
         ]);
     }
 }

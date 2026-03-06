@@ -97,18 +97,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $list = $this->productRepo->listProducts('id');
-
         if (request()->has('q') && request()->input('q') != '') {
-            $list = $this->productRepo->searchProduct(request()->input('q'));
+            $products = $this->productRepo->searchProductPaginated(request()->input('q'), 25);
+        } else {
+            $products = $this->productRepo->listProductsPaginated('id', 'desc', 25);
         }
 
-        $products = $list->map(function (Product $item) {
+        $products->getCollection()->transform(function (Product $item) {
             return $this->transformProduct($item);
-        })->all();
+        });
 
         return view('admin.products.list', [
-            'products' => $this->productRepo->paginateArrayResults($products, 25)
+            'products' => $products
         ]);
     }
 

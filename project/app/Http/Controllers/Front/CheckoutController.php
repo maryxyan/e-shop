@@ -5,17 +5,11 @@ namespace App\Http\Controllers\Front;
 use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Shop\Carts\Requests\CartCheckoutRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use App\Shop\Carts\Requests\PayPalCheckoutExecutionRequest;
-use App\Shop\Carts\Requests\StripeExecutionRequest;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Customers\Customer;
 use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
-use App\Shop\PaymentMethods\Paypal\Repositories\PayPalExpressCheckoutRepository;
-use App\Shop\PaymentMethods\Stripe\Exceptions\StripeChargingErrorException;
-use App\Shop\PaymentMethods\Stripe\StripeRepository;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Shipping\ShippingInterface;
@@ -24,8 +18,6 @@ use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
-use PayPal\Exception\PayPalConnectionException;
 
 class CheckoutController extends Controller
 {
@@ -62,11 +54,6 @@ class CheckoutController extends Controller
     private $orderRepo;
 
     /**
-     * @var PayPalExpressCheckoutRepository
-     */
-    private $payPal;
-
-    /**
      * @var ShippingInterface
      */
     private $shippingRepo;
@@ -86,7 +73,6 @@ class CheckoutController extends Controller
         $this->customerRepo = $customerRepository;
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
-        $this->payPal = new PayPalExpressCheckoutRepository;
         $this->shippingRepo = $shipping;
     }
 
@@ -146,67 +132,14 @@ class CheckoutController extends Controller
      */
     public function store(CartCheckoutRequest $request)
     {
-        $shippingFee = 0;
-
-        switch ($request->input('payment')) {
-            case 'paypal':
-                return $this->payPal->process($shippingFee, $request);
-                break;
-            case 'stripe':
-
-                $details = [
-                    'description' => 'Stripe payment',
-                    'metadata' => $this->cartRepo->getCartItems()->all()
-                ];
-
-                $customer = $this->customerRepo->findCustomerById(auth()->id());
-                $customerRepo = new CustomerRepository($customer);
-                $customerRepo->charge($this->cartRepo->getTotal(2, $shippingFee), $details);
-                break;
-            default:
-        }
-    }
-
-    /**
-     * Execute the PayPal payment
-     *
-     * @param PayPalCheckoutExecutionRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function executePayPalPayment(PayPalCheckoutExecutionRequest $request)
-    {
-        try {
-            $this->payPal->execute($request);
-            $this->cartRepo->clearCart();
-
-            return redirect()->route('checkout.success');
-        } catch (PayPalConnectionException $e) {
-            throw new PaypalRequestError($e->getData());
-        } catch (Exception $e) {
-            throw new PaypalRequestError($e->getMessage());
-        }
-    }
-
-    /**
-     * @param StripeExecutionRequest $request
-     * @return \Stripe\Charge
-     */
-    public function charge(StripeExecutionRequest $request)
-    {
-        try {
-            $customer = $this->customerRepo->findCustomerById(auth()->id());
-            $stripeRepo = new StripeRepository($customer);
-
-            $stripeRepo->execute(
-                $request->all(),
-                Cart::total(),
-                Cart::tax()
-            );
-            return redirect()->route('checkout.success')->with('message', 'Stripe payment successful!');
-        } catch (StripeChargingErrorException $e) {
-            Log::info($e->getMessage());
-            return redirect()->route('checkout.index')->with('error', 'There is a problem processing your request.');
-        }
+        // Redirect to bank transfer flow
+        return redirect()->route('bank-transfer.index', [
+            'billing_address' => $request->input('billing_address'),
+            'delivery_address' => $request->input('delivery_address'),
+            'courier' => $request->input('courier'),
+            'rate' => $request->input('rate'),
+            'shipment_obj_id' => $request->input('shipment_obj_id')
+        ]);
     }
 
     /**

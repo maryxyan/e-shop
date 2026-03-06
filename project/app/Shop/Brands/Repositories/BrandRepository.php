@@ -8,6 +8,7 @@ use App\Shop\Brands\Exceptions\BrandNotFoundErrorException;
 use App\Shop\Brands\Exceptions\CreateBrandErrorException;
 use App\Shop\Brands\Exceptions\UpdateBrandErrorException;
 use App\Shop\Products\Product;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -90,6 +91,18 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
     public function listBrands($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') : Collection
     {
         return $this->all($columns, $orderBy, $sortBy);
+    }
+
+    /**
+     * @param array $columns
+     * @param string $orderBy
+     * @param string $sortBy
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function listBrandsPaginated($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc', int $perPage = 10) : LengthAwarePaginator
+    {
+        return $this->model->orderBy($orderBy, $sortBy)->paginate($perPage, $columns);
     }
 
     /**

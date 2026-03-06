@@ -30,14 +30,14 @@ class ProductController extends Controller
      */
     public function search()
     {
-        $list = $this->productRepo->searchProduct(request()->input('q'));
+        $products = $this->productRepo->searchProductPaginated(request()->input('q'));
 
-        $products = $list->where('status', 1)->map(function (Product $item) {
-            return $this->transformProduct($item);
+        $products->getCollection()->transform(function ($product) {
+            return $this->transformProduct($product);
         });
 
         return view('front.products.product-search', [
-            'products' => $this->productRepo->paginateArrayResults($products->all(), 10)
+            'products' => $products
         ]);
     }
 
@@ -51,14 +51,15 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
         $product = $this->transformProduct($product);
-        $images = $product->images()->get();
-        $category = $product->categories()->first();
+        $images = $product->images;
+        $category = $product->categories->first();
         $productAttributes = $product->attributes;
 
         // Get related products from the same category
         $relatedProducts = collect([]);
         if ($category) {
             $relatedProducts = $category->products()
+                ->with(['images', 'brand'])
                 ->where('products.status', 1)
                 ->where('products.id', '!=', $product->id)
                 ->limit(4)

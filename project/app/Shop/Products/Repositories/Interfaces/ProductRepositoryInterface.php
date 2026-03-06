@@ -7,12 +7,15 @@ use Jsdecena\Baserepo\BaseRepositoryInterface;
 use App\Shop\Brands\Brand;
 use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
 interface ProductRepositoryInterface extends BaseRepositoryInterface
 {
     public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection;
+
+    public function listProductsPaginated(string $order = 'id', string $sort = 'desc', int $perPage = 10) : LengthAwarePaginator;
 
     public function createProduct(array $data) : Product;
 
@@ -37,6 +40,8 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function findProductBySlug(array $slug) : Product;
 
     public function searchProduct(string $text) : Collection;
+    
+    public function searchProductPaginated(string $text, int $perPage = 10) : LengthAwarePaginator;
 
     public function findProductImages() : Collection;
 

@@ -12,6 +12,7 @@ use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Shop\Products\Product;
 use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
@@ -58,6 +59,19 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
                         ->orderBy($order, $sort)
                         ->get()
                         ->except($except);
+    }
+
+    /**
+     * @param string $order
+     * @param string $sort
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function rootCategoriesPaginated(string $order = 'id', string $sort = 'desc', int $perPage = 10) : LengthAwarePaginator
+    {
+        return $this->model->whereIsRoot()
+            ->orderBy($order, $sort)
+            ->paginate($perPage);
     }
 
     /**
@@ -179,6 +193,15 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function findProducts() : Collection
     {
         return $this->model->products;
+    }
+
+    /**
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function findProductsPaginated(int $perPage = 10) : LengthAwarePaginator
+    {
+        return $this->model->products()->with(['images', 'brand'])->where('status', 1)->paginate($perPage);
     }
 
     /**

@@ -14,8 +14,8 @@
     <div class="container">
         <div class="header-utility-inner">
             <ul class="header-utility-left">
-                <li><i class="fa fa-phone"></i> <span>{{ config('shop.phone') }}</span></li>
-                <li><i class="fa fa-envelope"></i> <span>{{ config('shop.email') }}</span></li>
+                <li><i class="fa fa-phone"></i> <a href="tel:{{ config('shop.phone') }}"><span>{{ config('shop.phone') }}</span></a></li>
+                <li><i class="fa fa-envelope"></i> <a href="mailto:office@dmgart.ro"><span>office@dmgart.ro</span></a></li>
                 <li><i class="fa fa-map-marker"></i> <span>{{ $addressLine ?: 'Showroom ' . config('shop.name') }}</span></li>
             </ul>
             <ul class="header-utility-right">
@@ -26,8 +26,8 @@
                     <li><a href="{{ config('shop.social_facebook') }}" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>
                 @endif
                 @if(!config('shop.social_instagram') && !config('shop.social_facebook'))
-                    <li><a href="#" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>
-                    <li><a href="#" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.instagram.com/dmgartconcept/" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com/dmgartconcept" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>
                 @endif
             </ul>
         </div>
@@ -77,7 +77,7 @@
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label for="header-login-email">{{ __('Email *') }}</label>
-                                    <input type="email" id="header-login-email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" required autofocus>
+                                    <input type="email" id="header-login-email" name="email" value="{{ old('email') }}" class="form-control" placeholder="office@dmgart.ro" required autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label for="header-login-password">{{ __('Parola *') }}</label>

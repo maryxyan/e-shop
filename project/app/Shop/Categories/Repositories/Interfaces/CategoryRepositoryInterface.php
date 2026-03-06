@@ -5,6 +5,7 @@ namespace App\Shop\Categories\Repositories\Interfaces;
 use Jsdecena\Baserepo\BaseRepositoryInterface;
 use App\Shop\Categories\Category;
 use App\Shop\Products\Product;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
@@ -22,6 +23,8 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
     public function associateProduct(Product $product);
 
     public function findProducts() : Collection;
+    
+    public function findProductsPaginated(int $perPage = 10) : LengthAwarePaginator;
 
     public function syncProducts(array $params);
 
@@ -31,5 +34,7 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
 
     public function findCategoryBySlug(array $slug) : Category;
 
-    public function rootCategories(string $string, string $string1);
+    public function rootCategories(string $order = 'id', string $sort = 'desc', $except = []) : Collection;
+
+    public function rootCategoriesPaginated(string $order = 'id', string $sort = 'desc', int $perPage = 10) : LengthAwarePaginator;
 }

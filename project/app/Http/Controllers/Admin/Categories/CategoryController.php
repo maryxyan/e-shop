@@ -35,10 +35,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $list = $this->categoryRepo->rootCategories('created_at', 'desc');
+        $categories = $this->categoryRepo->rootCategoriesPaginated('created_at', 'desc');
 
         return view('admin.categories.list', [
-            'categories' => $this->categoryRepo->paginateArrayResults($list->all())
+            'categories' => $categories
         ]);
     }
 

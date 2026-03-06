@@ -10,6 +10,7 @@ use App\Shop\Customers\Exceptions\CustomerNotFoundException;
 use App\Shop\Customers\Exceptions\CustomerPaymentChargingErrorException;
 use App\Shop\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -139,6 +140,15 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     public function findOrders($columns = ['*'], string $orderBy = 'id') : Collection
     {
         return $this->model->orders()->get($columns)->sortByDesc($orderBy);
+    }
+
+    /**
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function findOrdersPaginated(int $perPage = 10) : LengthAwarePaginator
+    {
+        return $this->model->orders()->with('products')->orderBy('created_at', 'desc')->paginate($perPage);
     }
 
     /**

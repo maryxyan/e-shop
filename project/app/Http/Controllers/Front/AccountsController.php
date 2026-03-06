@@ -42,19 +42,17 @@ class AccountsController extends Controller
         $customer = $this->customerRepo->findCustomerById(auth()->user()->id);
 
         $customerRepo = new CustomerRepository($customer);
-        $orders = $customerRepo->findOrders(['*'], 'created_at');
+        $orders = $customerRepo->findOrdersPaginated(15);
 
-        $orders->transform(function (Order $order) {
+        $orders->getCollection()->transform(function (Order $order) {
             return $this->transformOrder($order);
         });
-
-        $orders->load('products');
 
         $addresses = $customerRepo->findAddresses();
 
         return view('front.accounts', [
             'customer' => $customer,
-            'orders' => $this->customerRepo->paginateArrayResults($orders->toArray(), 15),
+            'orders' => $orders,
             'addresses' => $addresses
         ]);
     }

@@ -4,7 +4,7 @@
             <li class="col-md-3 col-sm-6 col-xs-12 product-list">
                 <div class="single-product">
                     <div class="product">
-                        <div class="product-overlay style="position:absolute; width:260px;">
+                        <div class="product-overlay">
                             <div class="vcenter">
                                 <div class="centrize">
                                     <ul class="list-unstyled list-group">
@@ -22,7 +22,7 @@
                                                 data-target="#myModal_{{ $product->id }}"> <i class="fa fa-eye"></i>
                                                 Quick View</button>
                                         </li>
-                                        <li> <a class="btn btn-default product-btn"
+                                        <li> <a class="btn btn-default product-btn" style="font-size:13px;"
                                                 href="{{ route('front.get.product', $product->slug) }}"> <i
                                                     class="fa fa-link"></i> Go to product</a> </li>
                                     </ul>

@@ -21,6 +21,7 @@ use App\Shop\Orders\Transformers\OrderTransformable;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -108,6 +109,19 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     }
 
     /**
+     * @param string $order
+     * @param string $sort
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function listOrdersPaginated(string $order = 'id', string $sort = 'desc', int $perPage = 10) : LengthAwarePaginator
+    {
+        return $this->model->with(['customer', 'courier', 'orderStatus'])
+            ->orderBy($order, $sort)
+            ->paginate($perPage);
+    }
+
+    /**
      * @param Order $order
      * @return mixed
      */
@@ -172,6 +186,18 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         } else {
             return $this->listOrders();
         }
+    }
+
+    /**
+     * @param string $text
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function searchOrderPaginated(string $text, int $perPage = 10) : LengthAwarePaginator
+    {
+        return $this->model->searchForOrder($text)
+            ->with(['customer', 'courier', 'orderStatus'])
+            ->paginate($perPage);
     }
 
     /**

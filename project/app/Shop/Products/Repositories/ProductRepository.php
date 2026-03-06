@@ -14,6 +14,7 @@ use App\Shop\Products\Exceptions\ProductNotFoundException;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
@@ -45,6 +46,17 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection
     {
         return $this->all($columns, $order, $sort);
+    }
+
+    /**
+     * @param string $order
+     * @param string $sort
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function listProductsPaginated(string $order = 'id', string $sort = 'desc', int $perPage = 10) : LengthAwarePaginator
+    {
+        return $this->model->orderBy($order, $sort)->paginate($perPage);
     }
 
     /**
@@ -191,7 +203,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function findProductBySlug(array $slug) : Product
     {
         try {
-            return $this->findOneByOrFail($slug);
+            return $this->model->with(['images', 'categories', 'attributes', 'brand'])
+                ->where($slug)
+                ->firstOrFail();
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e);
         }
@@ -207,6 +221,20 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             return $this->model->searchProduct($text);
         } else {
             return $this->listProducts();
+        }
+    }
+
+    /**
+     * @param string $text
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function searchProductPaginated(string $text, int $perPage = 10) : LengthAwarePaginator
+    {
+        if (!empty($text)) {
+            return $this->model->search($text)->with(['images', 'brand'])->where('status', 1)->paginate($perPage);
+        } else {
+            return $this->model->with(['images', 'brand'])->where('status', 1)->paginate($perPage);
         }
     }
 
