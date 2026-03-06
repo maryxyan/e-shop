@@ -30,9 +30,9 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $data = $this->brandRepo->paginateArrayResults($this->brandRepo->listBrands(['*'], 'name', 'asc')->all());
+        $brands = $this->brandRepo->listBrandsPaginated(['*'], 'name', 'asc', 10);
 
-        return view('admin.brands.list', ['brands' => $data]);
+        return view('admin.brands.list', ['brands' => $brands]);
     }
 
     /**
