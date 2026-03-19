@@ -10,7 +10,7 @@
                 <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>{{ $user->name }}</p>
+                <p>{{ $admin->name }}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -32,8 +32,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    @if($user->hasPermission('view-product'))<li><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> List products</a></li>@endif
-                    @if($user->hasPermission('create-product'))<li><a href="{{ route('admin.products.create') }}"><i class="fa fa-plus"></i> Create product</a></li>@endif
+@if($admin->hasPermission('view-product'))<li><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> List products</a></li>@endif
+                    @if($admin->hasPermission('create-product'))<li><a href="{{ route('admin.products.create') }}"><i class="fa fa-plus"></i> Create product</a></li>@endif
                     <li class="@if(request()->segment(2) == 'attributes') active @endif">
                     <a href="#">
                         <i class="fa fa-gear"></i> <span>Attributes</span>
@@ -133,7 +133,7 @@
                 </ul>
             </li>
             <li class="header">CONFIG</li>
-            @if($user->hasRole('admin|superadmin'))
+@if($admin->hasRole('admin|superadmin'))
                 <li class="treeview @if(request()->segment(2) == 'employees' || request()->segment(2) == 'roles' || request()->segment(2) == 'permissions') active @endif">
             <a href="#">
                 <i class="fa fa-star"></i> <span>Employees</span>

@@ -13,18 +13,18 @@
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="quantity" value="1" />
                                                 <input type="hidden" name="product" value="{{ $product->id }}">
-                                                <button id="add-to-cart-btn" type="submit" class="btn btn-warning"
+<button id="add-to-cart-btn" type="submit" class="btn btn-warning"
                                                     data-toggle="modal" data-target="#cart-modal"> <i
-                                                        class="fa fa-cart-plus"></i> Add to cart</button>
+                                                        class="fa fa-cart-plus"></i> Adaugă în coș</button>
                                             </form>
                                         </li>
-                                        <li> <button type="button" class="btn btn-warning" data-toggle="modal"
+<li> <button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#myModal_{{ $product->id }}"> <i class="fa fa-eye"></i>
-                                                Quick View</button>
+                                                Vizualizare rapidă</button>
                                         </li>
-                                        <li> <a class="btn btn-default product-btn" style="font-size:13px;"
+<li> <a class="btn btn-default product-btn" style="font-size:13px;"
                                                 href="{{ route('front.get.product', $product->slug) }}"> <i
-                                                    class="fa fa-link"></i> Go to product</a> </li>
+                                                    class="fa fa-link"></i> Vezi produsul</a> </li>
                                     </ul>
                                 </div>
                             </div>

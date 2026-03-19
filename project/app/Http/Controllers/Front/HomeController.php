@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Product;
 use App\Shop\Products\Transformations\ProductTransformable;
 
@@ -16,12 +17,18 @@ class HomeController
     private $categoryRepo;
 
     /**
+     * @var ProductRepositoryInterface
+     */
+    private $productRepo;
+
+    /**
      * HomeController constructor.
      * @param CategoryRepositoryInterface $categoryRepository
      */
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(CategoryRepositoryInterface $categoryRepository, ProductRepositoryInterface $productRepository)
     {
         $this->categoryRepo = $categoryRepository;
+        $this->productRepo = $productRepository;
     }
 
     /**
@@ -39,6 +46,10 @@ class HomeController
             return $this->transformProduct($item);
         });
 
-        return view('front.index', compact('cat1', 'cat2'));
+        $recentProducts = $this->productRepo->listProducts('created_at', 'desc')->take(8)->map(function (Product $item) {
+            return $this->transformProduct($item);
+        });
+
+        return view('front.index', compact('cat1', 'cat2', 'recentProducts'));
     }
 }

@@ -36,9 +36,9 @@
 </noscript>
 <!-- Site wrapper -->
 <div class="wrapper">
-    @include('layouts.admin.header', ['user' => $admin])
+    @include('layouts.admin.header')
 
-    @include('layouts.admin.sidebar', ['user' => $admin])
+    @include('layouts.admin.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

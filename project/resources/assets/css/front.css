@@ -282,7 +282,7 @@ ul.auth-cart-horizontal > li {
     top: 0;
     height: 100%;
     width: 260px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity .8s ease, border .4s ease;
     text-align: center;
@@ -318,7 +318,7 @@ ul.auth-cart-horizontal > li {
 .product-btn {
     border-radius: 3px;
     font-size: 14px;
-    background: #d89522;
+    background: rgba(216, 149, 34, 0.8);
     color: #fff;
     border: 0px;
     margin-top: 10px;
@@ -326,6 +326,19 @@ ul.auth-cart-horizontal > li {
     width: 120px;
     height: 40px;
     margin: auto;
+}
+.product-btn:hover {
+    background: rgba(216, 149, 34, 1);
+}
+
+/* Overlay buttons - More transparent */
+.product-overlay .btn-warning {
+    background: rgba(255, 193, 7, 0.8);
+    border-color: rgba(255, 193, 7, 0.8);
+}
+.product-overlay .btn-warning:hover {
+    background: rgba(255, 193, 7, 1);
+    border-color: rgba(255, 193, 7, 1);
 }
 .product-text h4 {
     font-size: 18px;

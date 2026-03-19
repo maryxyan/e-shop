@@ -117,7 +117,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">{{ $user->name }}</span>
+                        <span class="hidden-xs">{{ $admin->name }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -125,8 +125,8 @@
                             <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                             <p>
-                                {{ $user->name }}
-                                <small>Member since {{ date('m Y', strtotime($user->created_at)) }}</small>
+                                {{ $admin->name }}
+                                <small>Member since {{ date('m Y', strtotime($admin->created_at)) }}</small>
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -147,7 +147,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ route('admin.employee.profile', $user->id) }}" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{ route('admin.employee.profile', $admin->id) }}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ route('admin.logout') }}" class="btn btn-default btn-flat">Sign out</a>
@@ -163,28 +163,3 @@
         </div>
     </nav>
 </header>
-
-<aside class="main-sidebar" style="margin-top:90px;">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <p>{{ $user->name }}</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu">
-            <li class="header">HOME</li>
-            <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-home"></i> <span>Home</span></a></li>
-            <li class="header">SELL</li>
-            <li><a href="{{ route('admin.products.index') }}"><i class="fa fa-gift"></i> <span>Products</span></a></li>
-            <!-- ...existing sidebar items... -->
-        </ul>
-    </section>
-    <!-- /.sidebar -->
-</aside>

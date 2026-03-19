@@ -80,6 +80,16 @@ Route::namespace('Auth')->group(function () {
 
 Route::namespace('Front')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
+    
+    // Static pages
+    Route::get('servicii', 'PagesController@servicii')->name('front.servicii');
+    Route::get('companie', 'PagesController@companie')->name('front.companie');
+    Route::get('cataloage', 'PagesController@cataloage')->name('front.cataloage');
+    
+    // Guest checkout routes (no auth required)
+    Route::get('checkout-guest', 'GuestCheckoutController@index')->name('guest-checkout.index');
+    Route::post('checkout-guest', 'GuestCheckoutController@store')->name('guest-checkout.store');
+    
     Route::group(['middleware' => ['auth', 'web']], function () {
 
         Route::namespace('Payments')->group(function () {

@@ -7,6 +7,7 @@
         $warehouse['city'] ?? '',
         $warehouse['country'] ?? ''
     ])));
+    $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode(($warehouse['address_1'] ?? '') . ', ' . ($warehouse['city'] ?? '') . ', ' . ($warehouse['country'] ?? ''));
 @endphp
 
 {{-- Bar 1: Utility bar (dark grey) - contact left, social right --}}
@@ -16,9 +17,12 @@
             <ul class="header-utility-left">
                 <li><i class="fa fa-phone"></i> <a href="tel:{{ config('shop.phone') }}"><span>{{ config('shop.phone') }}</span></a></li>
                 <li><i class="fa fa-envelope"></i> <a href="mailto:office@dmgart.ro"><span>office@dmgart.ro</span></a></li>
-                <li><i class="fa fa-map-marker"></i> <span>{{ $addressLine ?: 'Showroom ' . config('shop.name') }}</span></li>
+<li><i class="fa fa-map-marker"></i> <a href="{{ $googleMapsUrl }}" target="_blank" rel="noopener" title="{{ __('Deschide in Google Maps') }}"><span>{{ $addressLine ?: 'Showroom ' . config('shop.name') }}</span></a></li>
             </ul>
-            <ul class="header-utility-right">
+<ul class="header-utility-right">
+                <li><a href="{{ route('front.servicii') }}">Servicii</a></li>
+                <li><a href="{{ route('front.companie') }}">Companie</a></li>
+                <li><a href="{{ route('front.cataloage') }}">Cataloage</a></li>
                 @if(config('shop.social_instagram'))
                     <li><a href="{{ config('shop.social_instagram') }}" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>
                 @endif
@@ -187,5 +191,6 @@
         </nav>
     </div>
 </div>
+
 
 

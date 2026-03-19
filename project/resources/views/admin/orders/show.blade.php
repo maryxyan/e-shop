@@ -10,9 +10,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h2>
-                            <a href="{{ route('admin.customers.show', $customer->id) }}">{{$customer->name}}</a> <br />
-                            <small>{{$customer->email}}</small> <br />
-                            <small>reference: <strong>{{$order->reference}}</strong></small>
+                            <a href="{{ route('admin.customers.show', $customer->id ?? 0) }}">{{ $customer->name ?? 'N/A' }}</a> <br />
+                            <small>{{ $customer->email ?? 'N/A' }}</small> <br />
+                            <small>reference: <strong>{{ $order->reference ?? 'N/A' }}</strong></small>
                         </h2>
                     </div>
                     <div class="col-md-3 col-md-offset-3">
@@ -36,9 +36,9 @@
                     <tbody>
                     <tr>
                         <td>{{ date('M d, Y h:i a', strtotime($order['created_at'])) }}</td>
-                        <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $customer->name }}</a></td>
-                        <td><strong>{{ $order['payment'] }}</strong></td>
-                        <td><button type="button" class="btn btn-info btn-block">{{ $currentStatus->name }}</button></td>
+                        <td><a href="{{ route('admin.customers.show', $customer->id ?? 0) }}">{{ $customer->name ?? 'N/A' }}</a></td>
+                        <td><strong>{{ $order['payment'] ?? 'N/A' }}</strong></td>
+                        <td><button type="button" class="btn btn-info btn-block">{{ $currentStatus->name ?? 'N/A' }}</button></td>
                     </tr>
                     </tbody>
                     <tbody>
@@ -160,7 +160,7 @@
             <div class="box-footer">
                 <div class="btn-group">
                     <a href="{{ route('admin.orders.index') }}" class="btn btn-default">Back</a>
-                    @if($user->hasPermission('update-order'))<a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Edit</a>@endif
+@if($admin->hasPermission('update-order'))<a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Edit</a>@endif
                 </div>
             </div>
         @endif

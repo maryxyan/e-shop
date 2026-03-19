@@ -7,7 +7,22 @@
 @endsection
 
 @section('content')
-    @include('layouts.front.home-slider')
+@include('layouts.front.home-slider')
+
+    @if(isset($recentProducts) && $recentProducts->isNotEmpty())
+        <section class="new-product t100 home">
+            <div class="container">
+                <div class="section-title b100">
+                    <h2>Produse Noi</h2>
+                </div>
+                @include('front.products.product-list', [
+                    'products' => $recentProducts,
+                ])
+                <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn"
+                        href="{{ route('search.product') }}" role="button">Vezi toate produsele</a></div>
+            </div>
+        </section>
+    @endif
 
     @if ($cat1->products->isNotEmpty())
         <section class="new-product t100 home">
@@ -19,7 +34,7 @@
                     'products' => $cat1->products->where('status', 1),
                 ])
                 <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn"
-                        href="{{ route('front.category.slug', $cat1->slug) }}" role="button">browse all items</a></div>
+                        href="{{ route('front.category.slug', $cat1->slug) }}" role="button">Vezi toate produsele</a></div>
             </div>
         </section>
     @endif
@@ -31,7 +46,7 @@
             </div>
             @include('front.products.product-list', ['products' => $cat2->products->where('status', 1)])
             <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn"
-                    href="{{ route('front.category.slug', $cat2->slug) }}" role="button">browse all items</a></div>
+                    href="{{ route('front.category.slug', $cat2->slug) }}" role="button">Vezi toate produsele</a></div>
         </div>
     @endif
 @endsection

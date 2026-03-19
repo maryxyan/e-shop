@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Orders;
 
 use App\Shop\Addresses\Transformations\AddressTransformable;
+use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
@@ -87,13 +88,13 @@ class OrderController extends Controller
         $order->address = $orderRepo->getAddresses()->first();
         $items = $orderRepo->listOrderedProducts();
 
-        return view('admin.orders.show', [
+return view('admin.orders.show', [
             'order' => $order,
             'items' => $items,
             'customer' => $this->customerRepo->findCustomerById($order->customer_id),
             'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
             'payment' => $order->payment,
-            'user' => auth()->guard('employee')->user()
+            'admin' => auth()->guard('employee')->user()
         ]);
     }
 
@@ -118,7 +119,7 @@ class OrderController extends Controller
             'customer' => $this->customerRepo->findCustomerById($order->customer_id),
             'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
             'payment' => $order->payment,
-            'user' => auth()->guard('employee')->user()
+            'admin' => auth()->guard('employee')->user()
         ]);
     }
 
