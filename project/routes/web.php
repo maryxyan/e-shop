@@ -35,6 +35,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
                 Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
                 Route::get('remove-image-thumb', 'ProductController@removeThumbnail')->name('product.remove.thumb');
             });
+            Route::namespace('Catalogs')->group(function () {
+                Route::get('catalogs', 'CatalogController@index')->name('catalogs.index');
+                Route::post('catalogs', 'CatalogController@store')->name('catalogs.store');
+                Route::delete('catalogs/{filename}', 'CatalogController@destroy')->name('catalogs.destroy');
+            });
             Route::namespace('Customers')->group(function () {
                 Route::resource('customers', 'CustomerController');
                 Route::resource('customers.addresses', 'CustomerAddressController');

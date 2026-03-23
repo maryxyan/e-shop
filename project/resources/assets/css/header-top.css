@@ -150,7 +150,16 @@
     text-decoration: none !important;
 }
 .header-account-link:hover,
-.header-cart-link:hover {
+.header-account-dropdown-toggle:hover,
+.header-cart-link:hover,
+.header-cart-dropdown-toggle:hover {
+    color: #d89522 !important;
+}
+
+.menu-shopping-cart:hover .fa-shopping-cart,
+.header-cart-link:hover .fa-shopping-cart,
+.menubar-cart:hover .fa-shopping-cart,
+.header-cart-dropdown-toggle:hover .fa-shopping-cart {
     color: #d89522 !important;
 }
 
@@ -511,6 +520,31 @@
 .header-category-dropdown-menu a:hover {
     background: #f5f5f5;
 }
+
+/* Dark theme: cart & account link icons */
+html.dark-theme .header-account-link,
+html.dark-theme .header-cart-link {
+    color: #fff !important;
+}
+html.dark-theme .header-account-link:hover,
+html.dark-theme .header-account-dropdown-toggle:hover,
+html.dark-theme .header-cart-link:hover,
+html.dark-theme .header-cart-dropdown-toggle:hover {
+    color: #d89522 !important;
+}
+
+html.dark-theme .menu-shopping-cart:hover .fa-shopping-cart,
+html.dark-theme .header-cart-link:hover .fa-shopping-cart,
+html.dark-theme .menubar-cart:hover .fa-shopping-cart,
+html.dark-theme .header-cart-dropdown-toggle:hover .fa-shopping-cart {
+    color: #d89522 !important;
+}
+html.dark-theme .header-cart-badge {
+    background: #d89522;
+    color: #111 !important;
+}
+
+/* Basket icon follows same rules as .header-cart-link (already defined) */
 
 /* Responsive: hide main inner parts on mobile, show toggle */
 @media (max-width: 767px) {

@@ -15,6 +15,11 @@
     <div class="container">
         <div class="header-utility-inner">
             <ul class="header-utility-left">
+                <li class="theme-toggle">
+                    <button id="theme-toggle" class="theme-btn" title="Tema întunecată / Luminos">
+                        <i class="fa fa-moon-o"></i>
+                    </button>
+                </li>
                 <li><i class="fa fa-phone"></i> <a href="tel:{{ config('shop.phone') }}"><span>{{ config('shop.phone') }}</span></a></li>
                 <li><i class="fa fa-envelope"></i> <a href="mailto:office@dmgart.ro"><span>office@dmgart.ro</span></a></li>
 <li><i class="fa fa-map-marker"></i> <a href="{{ $googleMapsUrl }}" target="_blank" rel="noopener" title="{{ __('Deschide in Google Maps') }}"><span>{{ $addressLine ?: 'Showroom ' . config('shop.name') }}</span></a></li>

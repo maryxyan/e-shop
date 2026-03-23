@@ -1,4 +1,25 @@
 $(document).ready(function () {
+    // Dark theme toggle
+    const htmlEl = $('html')[0];
+    const toggleBtn = $('#theme-toggle');
+    if (toggleBtn.length) {
+        const icon = toggleBtn.find('i');
+        const isDark = htmlEl.classList.contains('dark-theme');
+        icon.removeClass('fa-moon-o fa-sun-o').addClass(isDark ? 'fa-sun-o' : 'fa-moon-o');
+        toggleBtn.on('click', function() {
+            const currentDark = htmlEl.classList.contains('dark-theme');
+            if (currentDark) {
+                htmlEl.classList.remove('dark-theme');
+                icon.removeClass('fa-sun-o').addClass('fa-moon-o');
+                localStorage.setItem('darkMode', 'disabled');
+            } else {
+                htmlEl.classList.add('dark-theme');
+                icon.removeClass('fa-moon-o').addClass('fa-sun-o');
+                localStorage.setItem('darkMode', 'enabled');
+            }
+        });
+    }
+
     $("#brand-logo").owlCarousel({
         autoPlay: 3000, //Set AutoPlay to 3 seconds
         items: 6,

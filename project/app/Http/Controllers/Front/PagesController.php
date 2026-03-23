@@ -28,7 +28,23 @@ class PagesController extends Controller
      */
     public function cataloage()
     {
-        return view('front.pages.cataloage');
+        $catalogDir = public_path('../public/assets/catalogs');
+        $catalogs = [];
+        if (is_dir($catalogDir)) {
+            $files = glob($catalogDir . '/*.pdf');
+            $catalogs = array_map(function ($file) {
+                $path = str_replace(public_path(), '', $file);
+                $display_name = preg_replace('/_\\d{10}\\.(pdf)$/i', '', basename($file));
+                return [
+                    'name' => basename($file),
+                    'display_name' => $display_name,
+                    'path' => $path,
+                    'size' => filesize($file),
+                    'url' => asset('assets/catalogs/' . basename($file)),
+                ];
+            }, $files);
+        }
+        return view('front.pages.cataloage', compact('catalogs'));
     }
 }
 

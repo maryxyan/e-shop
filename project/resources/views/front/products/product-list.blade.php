@@ -18,7 +18,7 @@
                                                         class="fa fa-cart-plus"></i> Adaugă în coș</button>
                                             </form>
                                         </li>
-<li> <button type="button" class="btn btn-warning" data-toggle="modal"
+<li> <button type="button" class="btn btn-warning quick-view-btn" data-toggle="modal"
                                                 data-target="#myModal_{{ $product->id }}"> <i class="fa fa-eye"></i>
                                                 Vizualizare rapidă</button>
                                         </li>

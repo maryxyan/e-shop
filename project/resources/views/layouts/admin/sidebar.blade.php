@@ -23,6 +23,11 @@
                     <i class="fa fa-upload"></i> <span>Batch Upload</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.catalogs.index') }}">
+                    <i class="fa fa-book"></i> <span>Catalogs</span>
+                </a>
+            </li>
             <li class="header">SELL</li>
             <li class="treeview @if(request()->segment(2) == 'products' || request()->segment(2) == 'attributes' || request()->segment(2) == 'brands') active @endif">
                 <a href="#">
