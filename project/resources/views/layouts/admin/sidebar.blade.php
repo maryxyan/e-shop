@@ -17,7 +17,18 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">HOME</li>
-            <li><a href="{{ route('admin.dashboard') }}"> <i class="fa fa-home"></i> Home</a></li>
+            <li class="treeview @if(request()->routeIs('admin.dashboard')) active @endif" id="admin-home-treeview">
+                <a href="#">
+                    <i class="fa fa-home"></i> <span>Home</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+                    <li><a href="{{ route('admin.sliders.index') }}"><i class="fa fa-images"></i> Slider</a></li>
+                </ul>
+            </li>
             <li>
                 <a href="{{ route('admin.products.batch-upload') }}">
                     <i class="fa fa-upload"></i> <span>Batch Upload</span>
@@ -185,6 +196,17 @@
                     <li><a href="{{ route('admin.countries.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
                 </ul>
             </li>
+@if(request()->routeIs('admin.dashboard'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var homeTreeview = document.getElementById('admin-home-treeview');
+                    if (homeTreeview) {
+                        homeTreeview.classList.add('active');
+                        // Auto-expand if needed, AdminLTE handles
+                    }
+                });
+            </script>
+            @endif
         </ul>
     </section>
     <!-- /.sidebar -->

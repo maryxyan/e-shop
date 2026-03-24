@@ -6,6 +6,7 @@ use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Product;
 use App\Shop\Products\Transformations\ProductTransformable;
+use App\Models\SliderImage;
 
 class HomeController
 {
@@ -50,6 +51,8 @@ class HomeController
             return $this->transformProduct($item);
         });
 
-        return view('front.index', compact('cat1', 'cat2', 'recentProducts'));
+        $sliders = SliderImage::getSliderImages();
+
+        return view('front.index', compact('cat1', 'cat2', 'recentProducts', 'sliders'));
     }
 }

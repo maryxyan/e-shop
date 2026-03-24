@@ -26,6 +26,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
     Route::namespace('Admin')->group(function () {
         Route::group(['middleware' => ['role:admin|superadmin|clerk, guard:employee']], function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
+            Route::namespace('Slider')->group(function () {
+                Route::resource('sliders', 'SliderController');
+                Route::post('sliders/order', 'SliderController@updateOrder')->name('sliders.order');
+            });
             Route::namespace('Products')->group(function () {
                 // Batch upload routes - must be defined BEFORE resource route to avoid conflicts
                 Route::get('products/batch-upload', 'ProductController@batchUpload')->name('products.batch-upload');
