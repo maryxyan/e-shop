@@ -54,7 +54,7 @@
                 </table>
                 
                 @if($sliders->count() > 1)
-                <button id="save-order" class="btn btn-success">Save Order</button>
+                <button id="save-order" class="btn btn-success" disabled>Save Order</button>
                 @endif
             </div>
         </div>
@@ -90,3 +90,4 @@ $(function() {
 });
 </script>
 @endsection
+

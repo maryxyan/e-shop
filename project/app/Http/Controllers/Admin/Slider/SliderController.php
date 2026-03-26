@@ -25,7 +25,7 @@ class SliderController extends Controller
         $path = $request->file('image')->store('sliders', 'public');
         SliderImage::create([
             'image_path' => $path,
-            'order' => SliderImage::max('order') ?? 0 + 1,
+            'order' => (SliderImage::max('order') ?: 0) + 1,
             'active' => true,
         ]);
         return redirect()->route('admin.sliders.index')->with('success', 'Image added to DB.');

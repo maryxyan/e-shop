@@ -19,7 +19,7 @@
         <!-- /.login-logo -->
         @include('layouts.errors-and-messages')
         <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">Autentifică-te pentru a începe sesiunea</p>
 
             <form action="{{ route('admin.login') }}" method="post">
                 {{ csrf_field() }}
@@ -28,20 +28,20 @@
                     <span class="fa fa-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input name="password" type="password" class="form-control" placeholder="Password">
+                    <input name="password" type="password" class="form-control" placeholder="Parolă">
                     <span class="fa fa-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox" name="remember"> Remember Me
+                            <input type="checkbox" name="remember"> Ține-mă minte
                             </label>
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Autentificare</button>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -51,8 +51,8 @@
 
             <!-- /.social-auth-links -->
 
-            <a href="#">I forgot my password</a><br>
-            <a href="{{ url('/') }}" class="text-center">Register a new membership</a>
+            <a href="#">Am uitat parola</a><br>
+            <a href="{{ url('/') }}" class="text-center">Înregistrează un cont nou</a>
 
         </div>
         <!-- /.login-box-body -->

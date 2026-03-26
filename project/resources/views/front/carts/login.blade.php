@@ -1,61 +1,63 @@
 @extends('layouts.front.app')
 
 @section('content')
-    <hr>
-    <!-- Main content -->
-    <section class="container content">
-        <div class="row">
-            <div class="col-md-12">@include('layouts.errors-and-messages')</div>
-            <div class="col-md-5">
-                <h2>Login to your account</h2>
-                <form action="{{ route('cart.login') }}" method="post" class="form-horizontal">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="email" class="control-label">Email</label>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" autofocus>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100 py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                @include('layouts.errors-and-messages')
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card shadow h-100">
+                            <div class="card-body p-4">
+                                <h4 class="card-title text-center mb-4 fs-4 text-body-emphasis">Autentificare</h4>
+                                <form action="{{ route('cart.login') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label text-body">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label text-body">Parolă</label>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Parola ta" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <a href="{{ route('password.request') }}" class="text-muted small text-body-secondary">Am uitat parola?</a>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 fs-6 py-2">Autentificare acum</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" value="" class="form-control" placeholder="xxxxx">
+                    <div class="col-md-6">
+                        <div class="card shadow h-100">
+                            <div class="card-body p-4">
+                                <h4 class="card-title text-center mb-4 fs-4 text-body-emphasis">Cont nou</h4>
+                                <form method="POST" action="{{ route('register') }}">
+                                    {{ csrf_field() }}
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label text-body">Nume</label>
+                                        <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label text-body">Adresă email</label>
+                                        <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label text-body">Parolă</label>
+                                        <input type="password" class="form-control" name="password" id="password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password_confirmation" class="form-label text-body">Confirmă parola</label>
+                                        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-primary w-100 fs-6 py-2">Înregistrează-te</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <button class="btn btn-primary btn-block" type="submit">Login now</button>
-                    </div>
-                </form>
-                <div class="row"><hr>
-                    <a href="#">I forgot my password</a><br>
                 </div>
             </div>
-            <div class="col-md-6 col-md-offset-1">
-                <h2>Register an account</h2>
-                <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="name" class="control-label">Name</label>
-                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="control-label">E-Mail Address</label>
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="control-label">Password</label>
-                        <input id="password" type="password" class="form-control" name="password" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password-confirm" class="control-label">Confirm Password</label>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
-                    </div>
-                </form>
-            </div>
         </div>
-    </section>
-    <!-- /.content -->
+    </div>
 @endsection
+

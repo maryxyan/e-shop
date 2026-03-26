@@ -93,10 +93,10 @@
                                     <input type="password" id="header-login-password" name="password" class="form-control" placeholder="Parola" required>
                                 </div>
                                 <div class="header-login-actions">
-                                    <a href="{{ route('password.request') }}" class="header-login-forgot">{{ __('Ai uitat parola?') }}</a>
-                                    <button type="submit" class="btn header-login-btn">{{ __('Login') }}</button>
+                                    <a href="{{ route('password.request') }}" class="header-login-forgot text-light">{{ __('Ai uitat parola?') }}</a>
+                                    <button type="submit" class="btn header-login-btn text-light">{{ __('Login') }}</button>
                                 </div>
-                                <a href="{{ route('register') }}" class="header-login-register">{{ __('INREGISTRARE CONT NOU') }} <i class="fa fa-arrow-right"></i></a>
+                                <a href="{{ route('register') }}" class="header-login-register text-light">{{ __('INREGISTRARE CONT NOU') }} <i class="fa fa-arrow-right"></i></a>
                             </form>
                         </div>
                     @endif
