@@ -1,4 +1,30 @@
 /* ============================================
+   Header Top - 3 bars (utility, main, category) - STICKY
+   ============================================ */
+
+/* Sticky header container */
+#header-section {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+}
+
+#header-section.header-scrolled .header-utility-bar {
+    background-color: rgba(51, 51, 51, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
+#header-section.header-scrolled .header-main-bar {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px 0 !important;
+}
+
+#header-section.header-scrolled .header-category-bar {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
    Header Top - 3 bars (utility, main, category)
    ============================================ */
 
@@ -542,6 +568,78 @@ html.dark-theme .header-cart-dropdown-toggle:hover .fa-shopping-cart {
 html.dark-theme .header-cart-badge {
     background: #d89522;
     color: #111 !important;
+}
+
+/* Dark theme: Search input and login forms - WHITE placeholders/text */
+html.dark-theme .header-search-input-group {
+    background-color: var(--bg-secondary, #2d2d2d) !important;
+    border-color: var(--border-color, #404040) !important;
+}
+html.dark-theme .header-search-input {
+    background-color: var(--bg-secondary, #2d2d2d) !important;
+    color: #fff !important;
+}
+html.dark-theme .header-search-input::placeholder,
+html.dark-theme .header-search-input::-webkit-input-placeholder,
+html.dark-theme .header-search-input::-moz-placeholder {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+html.dark-theme .header-search-btn {
+    color: var(--text-secondary, #b0b0b0) !important;
+    background-color: var(--bg-secondary, #2d2d2d) !important;
+}
+html.dark-theme .header-search-btn:hover {
+    color: var(--accent, #d89522) !important;
+}
+
+/* Header login form dark theme */
+html.dark-theme .header-login-form .form-control {
+    background-color: var(--bg-secondary, #2d2d2d) !important;
+    color: #fff !important;
+    border-color: var(--border-color, #404040) !important;
+}
+html.dark-theme .header-login-form .form-control::placeholder {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+html.dark-theme .header-login-form label {
+    color: #fff !important;
+}
+/* Base .header-login-forgot / .header-login-register use dark #222/#525 with !important */
+html.dark-theme .header-login-forgot,
+html.dark-theme .header-login-forgot.text-light,
+html.dark-theme .header-login-register,
+html.dark-theme .header-login-register.text-light {
+    color: #fff !important;
+}
+html.dark-theme .header-login-forgot:hover,
+html.dark-theme .header-login-register:hover {
+    color: var(--accent, #d89522) !important;
+}
+html.dark-theme .header-login-register {
+    border-top-color: var(--border-color, #404040);
+}
+html.dark-theme .header-login-btn,
+html.dark-theme .header-login-btn.text-light {
+    color: #fff !important;
+}
+html.dark-theme .header-account-dropdown-menu {
+    background-color: var(--card-bg, #252525) !important;
+    border-color: var(--border-color, #404040) !important;
+    color: #fff !important;
+}
+
+/* Mobile search dark theme */
+html.dark-theme .header-mobile-search .header-search-input-group {
+    background-color: var(--bg-secondary, #2d2d2d) !important;
+    border-color: var(--border-color, #404040) !important;
+}
+html.dark-theme .header-mobile-search .header-search-input::placeholder,
+html.dark-theme .header-mobile-search .header-search-input::-webkit-input-placeholder,
+html.dark-theme .header-mobile-search .header-search-input::-moz-placeholder {
+    color: #fff !important;
+    opacity: 1 !important;
 }
 
 /* Basket icon follows same rules as .header-cart-link (already defined) */

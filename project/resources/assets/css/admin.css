@@ -1,3 +1,37 @@
+/* Admin Dark Theme: White input placeholders/text */
+html.dark-theme #admin-search,
+html.dark-theme #admin-search::placeholder {
+    background-color: #2d2d2d !important;
+    color: #fff !important;
+    border-color: #404040 !important;
+}
+
+html.dark-theme input[type="text"],
+html.dark-theme input[type="email"],
+html.dark-theme input[type="password"],
+html.dark-theme input[type="search"],
+html.dark-theme textarea,
+html.dark-theme select {
+    background-color: #2d2d2d !important;
+    color: #fff !important;
+    border-color: #404040 !important;
+}
+
+html.dark-theme input::placeholder,
+html.dark-theme textarea::placeholder {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+
+html.dark-theme input:focus,
+html.dark-theme textarea:focus,
+html.dark-theme select:focus {
+    background-color: #2d2d2d !important;
+    color: #fff !important;
+    border-color: #d89522 !important;
+    box-shadow: 0 0 0 0.2rem rgba(216, 149, 34, 0.25) !important;
+}
+
 #search-btn {
     border: 1px solid #d2d6de;
 }
@@ -48,4 +82,20 @@ table.dataTable thead th {
     float: none !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+}
+
+html.dark-theme .content-wrapper,
+html.dark-theme .content {
+    background-color: #1e1e1e !important;
+}
+
+html.dark-theme table.dataTable {
+    background-color: #2d2d2d !important;
+    color: #f0f0f0 !important;
+}
+
+html.dark-theme table.dataTable thead th {
+    background-color: #404040 !important;
+    color: #fff !important;
+    border-color: #555 !important;
 }
